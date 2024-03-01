@@ -1,0 +1,40 @@
+body {
+    background-image: linear-gradient(lightblue, whitesmoke);
+    height: 100vh;
+    margin: 5% 10% 5% 10%;
+    font-family: arial;
+}
+
+h2, h1 {
+    color: black;
+}
+
+button {
+    height: 7%;
+    width: 21%;
+    border-radius: 0.5vw;
+}
+
+.button-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.button-container .icon-container {
+    height: 80%;
+    width: 5.6vh;
+    object-fit: cover;
+    margin: 2%;
+    background-color: yellowgreen;
+}
+
+.button-container .label-container {
+    height: 80%;
+    width: 21vw-5.6vh;
+    justify-content: end;
+    font-size: medium;
+    margin: 2%;
+    background-color: red;
+}
+
