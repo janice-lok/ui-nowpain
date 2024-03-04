@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/css/homepage.css">
+    <meta charset="utf-8">
+    <title>CK Pain Clinic</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+
+  <body>
+    <div id="body-container">
+      <div id="homepage-header">
+        <h1>CK Pain Clinic</h1>
+      </div>
+
+      <div id="homepage-buttons">
+        <h2>Welcome</h2>
+        <a href="/patientpage">
+          <button>
+            <div class="button-container">
+              <div class="icon-container">
+                <img src="static/icons/add.svg">
+              </div>
+              <div class="label-container">
+                <p>Add Patient</p>
+              </div>
+            </div>
+          </button>
+        </a>
+  
+        <br>
+        <br>
+  
+        <form action="{{ url_for('search_patients') }}" method="get">
+          <button>
+            <div class="button-container">
+              <div class="icon-container">
+                <img src="static/icons/search.svg">
+              </div>
+              <div class="label-container">
+                <p>Search for Patient</p>
+              </div>
+            </div>
+          </button>
+        </form> 
+  
+        <br>
+  
+        <form action="{{ url_for('retrieve_all_patients') }}" method="get">
+          <button type="submit">
+            <div class="button-container">
+              <div class="icon-container">
+                <img src="static/icons/people.svg">
+              </div>
+              <div class="label-container">
+                <p>All Patients</p>
+              </div>
+            </div>
+          </button>
+        </form>
+  
+        <br>
+  
+        <form action="{{ url_for('retrieve_all_appointments') }}" method="get">
+          <button type="submit">All Appointments</button>
+        </form>
+  
+        <br>
+  
+        <a href="/calendar">
+          <button>
+            <div class="button-container">
+              <div class="icon-container">
+                <img src="static/icons/calendar.svg">
+              </div>
+              <div class="label-container">
+                <p>View Calendar</p>
+              </div>
+            </div>
+          </button>
+        </a>
+  
+        <br>
+        <br>
+
+        <form action="{{ url_for('attendancesearch') }}" method="get">
+          <button>
+            <div class="button-container">
+              <div class="icon-container">
+                <!-- <img src="static/icons/search.svg"> -->
+              </div>
+              <div class="label-container">
+                <p>Attendance</p>
+              </div>
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
