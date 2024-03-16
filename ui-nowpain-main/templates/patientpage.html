@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>NF Patient Information</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/static/css/Logo.png"> 
+  </head>
+
+  <style>
+    @media print {
+      .hide {
+        display: none;
+      }
+    }
+  
+    .line {
+      height: 5px;
+      background: black;
+    }
+  
+    .container {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-areas: 
+      "a a a a a a";
+      align-items: center;
+      justify-items: center;
+    }
+  
+    .container2 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-areas: 
+      "b c d u e f"
+      "g h i v j k"
+      ". . . . . ."
+      "l m n . o p"
+      "q r s . . t"
+      ". . . . . ."
+      "b1 . c1 . d1 e1"
+      "f1 . g1 . h1 i1"
+      ". . . . . ."
+      "j1 k1 . . l1 m1"
+      "n1 o1 . . p1 q1"
+      ". . . . . .";
+      align-items: center;
+    }
+  
+    .container3 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-areas: 
+      "b c d e f"
+      "g h i . ."
+      ". . . . ."
+      "j . k . l"
+      "m . n . o"
+      ". . . . .";
+      align-items: center;
+    }
+  
+    .container4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas: 
+      "b c d e"
+      "f g h i"
+      ". . . .";
+      align-items: center;
+    }
+  
+    .item-a {
+      grid-area: a; 
+    }
+    .item-b {
+      grid-area: b;
+    }
+    .item-c {
+      grid-area: c;
+    }
+    .item-d {
+      grid-area: d;
+    }
+    .item-e {
+      grid-area: e;
+    }
+    .item-f {
+     grid-area: f;
+    }
+    .item-g {
+     grid-area: g;
+    }
+    .item-h {
+     grid-area: h;
+    }
+    .item-i {
+     grid-area: i;
+    }
+    .item-j {
+     grid-area: j;
+    }
+    .item-k {
+     grid-area: k;
+    }
+    .item-l {
+     grid-area: l;
+    }
+    .item-m {
+     grid-area: m;
+    }
+    .item-n {
+     grid-area: n;
+    }
+    .item-o {
+     grid-area: o;
+    }
+    .item-p {
+     grid-area: p;
+    }
+    .item-q {
+     grid-area: q;
+    }
+    .item-r {
+     grid-area: r;
+    }
+    .item-s {
+     grid-area: s;
+    }
+    .item-t {
+     grid-area: t;
+    }
+    .item-b1 {
+      grid-area: b1;
+    }
+    .item-c1 {
+      grid-area: c1;
+    }
+    .item-d1 {
+      grid-area: d1;
+    }
+    .item-e1 {
+      grid-area: e1;
+    }
+    .item-f1 {
+     grid-area: f1;
+    }
+    .item-g1 {
+     grid-area: g1;
+    }
+    .item-h1 {
+     grid-area: h1;
+    }
+    .item-i1 {
+     grid-area: i1;
+    }
+    .item-j1 {
+     grid-area: j1;
+    }
+    .item-k1 {
+     grid-area: k1;
+    }
+    .item-l1 {
+     grid-area: l1;
+    }
+    .item-m1 {
+     grid-area: m1;
+    }
+    .item-n1 {
+     grid-area: n1;
+    }
+    .item-o1 {
+     grid-area: o1;
+    }
+    .item-p1 {
+     grid-area: p1;
+    }
+    .item-q1 {
+     grid-area: q1  ;
+    }
+  
+    body {
+      font-size: 14px;
+      font-family: Arial, sans-serif
+    }
+  
+    input::-webkit-datetime-edit {
+      font-size: 14px;
+      font-family: Arial, sans-serif
+    }
+  
+    input[type=text], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+  
+    input[type=date], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+  
+    button[type=submit] {
+      width: 15%;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    input[type=button] {
+      width: 15%;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    h1, h2 {
+      border-radius: 5px;
+      background-color: #cac0c0;
+      padding: 20px;
+    }
+  </style>
+  
+  </body>
+    <div>
+    <h1>Patient Record</h1>
+    </div>
+    <form autocomplete="off" action="{{ url_for('process_patient') }}" id="process_patient" method="post">
+      <div class="container">
+        <div class="item-a">
+          <label for="patient_insurance_type" class="item">Insurance Type:</label>
+          <input type="text" id="patient_insurance_type" name="patient_insurance_type" list="patient_insurance_type_list" required>
+          <datalist id="patient_insurance_type_list">
+            <option value="NF"></option>
+            <option value="WC"></option>
+            <option value="MC"></option>
+            <option value="PI"></option>
+            <option value="CASH"></option>
+          </datalist>
+          <label for="patient_first_visit" class="item">&emsp; First Visit:</label>     
+          <input type="date" id="patient_first_visit" name="patient_first_visit" min="1800-01-01" max="9999-01-01" required>
+          <label for="patient_id" class="item">&emsp; Patient ID:</label>
+          <input type="text" id="patient_id" name="patient_id" oninput="checkPatientId();" required>
+            <script>
+              var arr = [];
+            </script>
+            {% for item in data %}
+            <p hidden id="{{item[0]}}">{{item[0]}}</p> 
+            <script>  
+                var value = document.getElementById("{{item[0]}}").innerHTML;
+                arr.push(value);
+                var patient_id = document.querySelector("#patient_id");
+                
+                function checkPatientId() {
+                  for (let i = 0; i < arr.length; i++) {
+                    if (patient_id.value == arr[i]) {
+                      patient_id.setCustomValidity("Patient ID Already Exists!");
+                      break;
+                    } else {
+                      patient_id.setCustomValidity("");
+                    }
+                  }
+                }
+            </script> 
+            {% endfor %}
+        </div>
+      </div>
+      <br>
+      <div class="line"></div>
+      <br>
+      <div class="container2">
+        <div class="item-b">
+          <label for="patient_last_name">Last Name:</label>
+        </div>
+        <div class="item-c">
+          <label for="patient_first_name">First Name:</label>
+        </div>
+        <div class="item-d">
+          <label for="patient_middle_name"> Middle Name:</label>
+        </div>
+        <div class="item-u">
+          <label for="patient_name" class="hide">Korean Name:</label>
+        </div>
+        <div class="item-e">
+          <label for="patient_cell_phone">Cell Phone:</label>
+        </div>
+        <div class="item-f">
+          <label for="patient_home_phone">Home Phone:</label>
+        </div>
+        <div class="item-g">
+          <input type="text" id="patient_last_name" name="patient_last_name" required>
+        </div>
+        <div class="item-h">
+          <input type="text" id="patient_first_name" name="patient_first_name" required>
+        </div>
+        <div class="item-i">
+          <input size="10" type="text" id="patient_middle_name" name="patient_middle_name">
+        </div>
+        <div class="item-v">
+          <input type="text" id="patient_name" name="patient_name" class="hide" placeholder="가 나다 NF" oninput="checkPatientName();" required>
+        </div>
+        <script>
+          var arr1 = [];
+        </script>
+        {% for item in data %}
+        <p hidden id="{{item[5]}}">{{item[5]}}</p> 
+        <script>  
+            var value = document.getElementById("{{item[5]}}").innerHTML;
+            arr1.push(value);
+            console.log(arr1)
+            var patient_name = document.querySelector("#patient_name");
+            
+            function checkPatientName() {
+              for (let i = 0; i < arr.length; i++) {
+                if (patient_name.value == arr1[i]) {
+                  patient_name.setCustomValidity("Patient Name Already Exists!");
+                  break;
+                } else {
+                  patient_name.setCustomValidity("");
+                }
+              }
+            }
+        </script> 
+        {% endfor %}
+        <div class="item-q">
+          <input type="date" id="patient_dob" name="patient_dob" min="1800-01-01" max="9999-01-01" required>
+        </div>
+        <div class="item-r">
+          <select id="patient_sex" name="patient_sex" required>
+            <option disabled selected value> - select - </option>
+            <option value="M">M</option>
+            <option value="F">F</option>
+          </select>
+        </div>
+        <div class="item-s">
+          <input type="text" id="patient_ssn" name="patient_ssn" placeholder="123-45-6789" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}">
+        </div>
+        <div class="item-f1">
+          <input type="text" id="patient_a" name="patient_a" placeholder="123 Main St" required>
+        </div>
+        <div class="item-g1">
+          <input type="text" id="patient_c" name="patient_c" required>
+        </div>
+        <div class="item-n1">
+          <input type="text" id="patient_s" name="patient_s" list="patient_s_list" required>
+          <datalist id="patient_s_list">
+            <option value="NJ"></option>
+            <option value="NY"></option>
+            <option value="PA"></option>
+            <option value="CT"></option>
+          </datalist>
+        </div>
+        <div class="item-o1">
+          <input type="text" id="patient_z" name="patient_z" placeholder="12345" pattern="[0-9]{5}" required>
+        </div>
+        <div class="item-j">
+          <input type="text" id="patient_cell_phone" name="patient_cell_phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        </div>
+        <div class="item-k">
+          <input type="text" id="patient_home_phone" name="patient_home_phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        </div>
+        <div class="item-l">
+          <label for="patient_dob">DOB:</label>
+        </div>
+        <div class="item-m">
+          <label for="patient_sex">Sex:</label>
+        </div>
+        <div class="item-n">
+          <label for="patient_ssn">SSN:</label>
+        </div>
+        <div class="item-o">
+          <label for="patient_marriage">Married:</label>
+          <input type="checkbox" id="patient_marriage" name="patient_marriage">
+        </div>
+        <div class="item-t">
+          <input type="text" id="patient_num_children" name="patient_num_children" pattern="[0-9]{1}">
+        </div>
+        <div class="item-p">
+          <label for="patient_num_children">Number of Children:</label>
+        </div>
+        <div class="item-b1">
+          <label for="patient_a">Address:</label>
+        </div>
+        <div class="item-c1">
+          <label for="patient_c">City:</label>
+        </div>
+        <div class="item-d1">
+          <label for="emergency_name">Emergency Contact Name:</label>
+        </div>
+        <div class="item-e1">
+          <label for="emergency_relation">Emergency Contact Relationship:</label>
+        </div>
+        <div class="item-h1">
+          <input type="text" id="emergency_name" name="emergency_name">
+        </div>
+        <div class="item-i1">
+          <input type="text" id="emergency_relation" name="emergency_relation">
+        </div>
+        <div class="item-j1">
+          <label for="patient_s">State:</label>
+        </div>
+        <div class="item-k1">
+          <label for="patient_z">Zip Code:</label>
+        </div>
+        <div class="item-l1">
+          <label for="emergency_cell_phone">Emergency Cell Phone:</label>
+        </div>
+        <div class="item-m1">
+          <label for="emergency_home_phone">Emergency Home Phone:</label>
+        </div>
+        <div class="item-p1">
+          <input type="text" id="emergency_cell_phone" name="emergency_cell_phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        </div>
+        <div class="item-q1">
+          <input type="text" id="emergency_home_phone" name="emergency_home_phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        </div>
+      </div>
+      <div>
+      <h2>Accident & Insurance Information</h2>
+      </div>
+      <div class="container3">
+        <div class="item-b">  
+          <label for="date_of_loss">Date of Loss:</label>
+        </div>
+        <div class="item-c">
+          <label for="acc_state">Accident State:</label>
+        </div>
+        <div class="item-d">
+          <label for="acc_type">Accident Type:</label>
+        </div>
+        <div class="item-g">
+          <input type="date" id="date_of_loss" name="date_of_loss" min="1800-01-01" max="9999-01-01" value="1800-01-01">
+        </div>
+        <div class="item-h">
+          <input type="text" id="acc_state" name="acc_state" list="acc_state_list">
+          <datalist id="acc_state_list">
+            <option value="NJ"></option>
+            <option value="NY"></option>
+            <option value="PA"></option>
+            <option value="CT"></option>
+          </datalist>
+        </div>
+        <div class="item-i">
+          <input type="text" id="acc_type" name="acc_type">
+        </div>
+        <div class="item-e">
+          <label for="police_report">Police Report:</label>
+          <input type="checkbox" id="police_report" name="police_report">
+        </div>
+        <div class="item-f">
+          <label for="emergency_room">Emergency Room:</label>
+          <input type="checkbox" id="emergency_room" name="emergency_room">
+        </div>
+        <div class="item-j">
+          <label for="insurance_company">Insurance Company:</label>
+        </div>
+        <div class="item-k">
+          <label for="policy_number">Policy Number:</label>
+        </div>
+        <div class="item-l">
+          <label for="claim_number">Claim Number:</label>
+        </div>
+        <div class="item-m">
+          <input type="text" id="insurance_company" name="insurance_company">
+        </div>
+        <div class="item-n">
+          <input type="text" id="policy_number" name="policy_number">
+        </div>
+        <div class="item-o">
+          <input type="text" id="claim_number" name="claim_number">
+        </div>
+      </div>
+      <div class="container4">
+        <div class="item-b">
+          <label for="policy_last_name">Policyholder Last Name:</label>
+        </div>
+        <div class="item-c">
+          <label for="policy_first_name">Policyholder First Name:</label>
+        </div>
+        <div class="item-d">
+          <label for="policy_relation">Policyholder Relationship:</label>
+        </div>
+        <div class="item-e">
+          <label for="attorney_name">Attorney Name:</label>
+        </div>
+        <div class="item-f">
+          <input type="text" id="policy_last_name" name="policy_last_name">
+        </div>
+        <div class="item-g">
+          <input type="text" id="policy_first_name" name="policy_first_name">
+        </div>
+        <div class="item-h">
+          <input type="text" id="policy_relation" name="policy_relation">
+        </div>
+        <div class="item-i">
+          <input type="text" id="attorney_name" name="attorney_name">
+        </div>
+      </div>
+      <br>
+      <div class="line"></div>
+      <br>
+      <div>
+        <label for="memo" class="hide">Memo:</label>
+        <input type="text" id="memo" name="memo" class="hide">
+        &nbsp;
+        &nbsp;
+        <label for="PT_memo" class="hide">PT Memo:</label>
+        <input type="text" id="PT_memo" name="PT_memo" class="hide">
+      </div>
+      <br>
+      <div>
+        <button type="submit" class="hide">Submit Form</button>
+        <input type="button" class="hide" value="Print PDF" onclick="window.print()">
+      </div>
+      </form>
+    <a href="/">
+        <button type="submit" class="hide">Return</button>
+    </a>
+  </body>
+</html>

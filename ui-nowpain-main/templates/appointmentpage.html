@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CK Pain Clinic</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+  <script>
+    function myFunction() {
+      alert("Patient Already Exists for this Date!");
+    }
+  </script>
+  {% if error %}
+  <body onload = "myFunction()">
+  {% endif %}
+    <h1>Appointments for {{date}}</h1>
+    {% for item in data %}
+    <form autocomplete="off" action="{{ url_for('update_appointment') }}" id="update_appointment" method="post">
+      <label for="patient_name">Patient Name:</label>
+      <input type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
+      <label for="visit_date">Visit Date:</label>
+      <input type="date" id="visit_date" name="visit_date" required value="{{item[1]}}">
+      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}">
+      <label for="visit_time">Visit Time:</label>
+      <input type="time" id="visit_time" name="visit_time" required value="{{item[2]}}">
+      <label for="appt_type">Appointment Type:</label>
+      <select name="appt_type" id="appt_type" required multiple>
+        <option value ="PT" {% if (item[3]) == True %} selected {% endif %}>PT</option>
+        <option value="PMR(KIM)" {% if item[4] == True %} selected {% endif %}>PMR(KIM)</option>
+        <option value="PMR(KIM) EMG"  {% if item[5] == True %} selected {% endif %}>PMR(KIM) EMG</option>
+        <option value="CHIRO"  {% if item[6] == True %} selected {% endif %}>CHIRO</option>
+        <option value="ACU" {% if item[7] == True %} selected {% endif %}>ACU</option>
+        <option value="Cancel"  {% if item[8] == True %} selected {% endif %}>Cancel</option>
+        <option value="No Show" {% if item[9] == True %} selected {% endif %}>No Show</option>
+      </select>
+      <label for="memo">Memo:</label>
+      <input type="text" id="memo" name="memo" value="{{item[10]}}">
+      <label for="visited">Visited:</label>
+      <input type="checkbox" id="visited" name="visited" {% if item[11] == True %} checked {% endif %}>
+      <label for="last_pt">Last PT:</label>
+      <input type="date" id="last_pt" name="last_pt" required value="{{item[12]}}" readonly>
+      <label for="last_md">Last MD:</label>
+      <input type="date" id="last_md" name="last_md" required value="{{item[13]}}" readonly>
+      <label for="last_chiro">Last CHIRO:</label>
+      <input type="date" id="last_chiro" name="last_chiro" required value="{{item[14]}}" readonly>
+      <label for="last_acu">Last ACU:</label>
+      <input type="date" id="last_acu" name="last_acu" required value="{{item[15]}}" readonly>
+      <button type="submit">Save Form</button>
+    </form>
+    <form action="{{ url_for('delete_appointment') }}" id="delete_appointment" method="post">
+      <input hidden type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
+      <input hidden type="date" id="visit_date" name="visit_date" required value="{{item[1]}}">
+      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}" readonly>
+      <button type="submit">Delete</button>
+    </form>
+    {% endfor %}
+    <form autocomplete="off" action="{{ url_for('process_appointment') }}" id="process_appointment" method="post">
+      <label for="patient_name">Patient Name:</label>
+      <input type="text" id="patient_name" name="patient_name" list="patient_name_choice" required>
+      <datalist id="patient_name_choice">
+        {% for item in patients %}
+            <option value="{{item[5]}}"></option>
+        {% endfor %}
+      </datalist>
+      <label for="visit_date">Visit Date:</label>
+      <input type="date" id="visit_date" name="visit_date" value="{{date}}" required>
+      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{date}}">
+      <label for="visit_time">Visit Time:</label>
+      <input type="time" id="visit_time" name="visit_time" required>
+      <label for="appt_type">Appointment Type:</label>
+      <select name="appt_type" id="appt_type" multiple required>
+        <option value="PT">PT</option>
+        <option value="PMR(KIM)">PMR(KIM)</option>
+        <option value="PMR(KIM) EMG">PMR(KIM) EMG</option>
+        <option value="CHIRO">CHIRO</option>
+        <option value="ACU">ACU</option>
+        <option value="Cancel">Cancel</option>
+        <option value="No Show">No Show</option>
+      </select>
+      <label for="memo">Memo:</label>
+      <input type="text" id="memo" name="memo">
+      <label for="visited">Visited:</label>
+      <input type="checkbox" id="visited" name="visited">
+      <button type="submit">Submit Form</button>
+    </form>
+    <br>
+    <br>
+      <label for="total_pt">Total PT:</label>
+      <input type="text" id="total_pt" name="total_pt" value="{{count[0][0]}}" readonly>
+      <label for="total_md">Total MD:</label>
+      <input type="text" id="total_md" name="total_md" value="{{count[1][0]}}" readonly>
+      <label for="total_chiro">Total Chiro:</label>
+      <input type="text" id="total_chiro" name="total_chiro" value="{{count[2][0]}}" readonly>
+      <label for="total_acu">Total Acu:</label>
+      <input type="text" id="total_acu" name="total_acu" value="{{count[3][0]}}" readonly>
+      <label for="total_cancel">Total Cancel:</label>
+      <input type="text" id="total_cancel" name="total_cancel" value="{{count[4][0]}}" readonly>
+      <label for="total_no_show">Total No Show:</label>
+      <input type="text" id="total_no_show" name="total_no_show" value="{{count[5][0]}}" readonly>
+    <br>
+    <br>
+    <a href="/calendar">
+      <button type="submit">Return</button>
+    </a>
+  </body>
+</html>

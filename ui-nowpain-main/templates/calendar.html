@@ -1,0 +1,204 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CK Pain Clinic</title>
+</head>
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background: white;
+  }
+
+  .astext {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+  }
+
+  #calendar {
+      width: 100%;
+      margin: 50px auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: white;
+  }
+
+  #calendar-header {
+      background-color: black;
+      color: white;
+      text-align: center;
+      display: flex;
+      height: 10vh;
+      justify-content: center;
+  }
+  #calendar-header .arrows{
+      margin-top: 1vh;
+      margin-left: 20px;
+      margin-right: 20px;
+      height: 8vh;
+      width: 4vw;
+  }
+  #calendar-header #month-year{
+      margin-bottom: 1vh;
+  }
+
+  #calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid #ccc;
+  }
+
+  #calendar-days div {
+      text-align: center;
+      padding: 10px;
+  }
+
+  #calendar-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 10px;
+  }
+
+  #calendar-body div {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 100px;
+  }
+  #calendar-body .current-day {
+      background-color: #4caf50;
+      color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div id="calendar">
+  <div id="calendar-header">
+      <button class="arrows" onclick="prevMonth()">❮</button>
+      <h2 id="month-year"></h2>
+      <button class="arrows" onclick="nextMonth()">❯</button>
+  </div>
+  <div id="calendar-days"></div>
+  <div id="calendar-body"></div>
+</div>
+
+<script>
+  var arr = [];
+
+</script>
+{% for item in data %}
+<p hidden id="{{item[0]}}">{{item[0]}}</p>
+<p hidden id="{{item[1]}}">{{item[1]}}</p>  
+  <script>   
+      //clear temp
+      var temp = [];
+      var value = document.getElementById("{{item[0]}}").innerHTML;
+      var value2 = document.getElementById("{{item[1]}}").innerHTML;
+      temp.push(value);     
+      temp.push(value2);
+      arr.push(temp);
+  </script> 
+{% endfor %}
+<script>
+
+
+
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const today = new Date();
+  let currentMonth = today.getMonth();
+  let currentYear = today.getFullYear();
+
+
+  function updateCalendar() {
+      const calendarHeader = document.getElementById('month-year');
+      calendarHeader.textContent = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+      const calendarDays = document.getElementById('calendar-days');
+      calendarDays.innerHTML = '';
+      daysOfWeek.forEach(day => {
+          const dayElement = document.createElement('div');
+          dayElement.textContent = day;
+          calendarDays.appendChild(dayElement);
+      });
+
+      const calendarBody = document.getElementById('calendar-body');
+      calendarBody.innerHTML = '';
+
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+      const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      for (let i = 0; i < firstDayOfMonth; i++) {
+          const emptyDay = document.createElement('div');
+          calendarBody.appendChild(emptyDay);
+      }
+
+      // HERE
+      for (let day = 1; day <= lastDayOfMonth; day++) {
+          const dayElement = document.createElement('div');
+          // dayElement.innerHTML = day;
+          const ref_month = currentMonth + 1;
+          const ref_day = day;
+          var result_day = ref_day.toString();
+          var result_month = ref_month.toString();
+          
+          if (ref_day < 10) {
+            result_day = "0"+ref_day;
+          } else {
+          }
+          if (ref_month < 10) {
+            result_month = "0"+ref_month;
+          } else {
+          }
+          var ref_date = ""+currentYear+ "-" +result_month+ "-" +result_day+"";
+        //   console.log(ref_date);
+          var test = "2024-03-03"
+          dayElement.innerHTML = '<form action="/retrieve_appointments" method="post"><input type="hidden" id="date" name="date" value="'+ref_date+'"><button class="astext">'+ref_day+'</button></form>';
+          for (let i = 0; i< arr.length;i++){
+                if (arr[i][1] == ref_date){
+                  dayElement.innerHTML += '<label>' + arr[i][0] + '</label><br>'
+                }
+          }
+          
+          calendarBody.appendChild(dayElement);
+
+          // Highlight the current day
+          if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+              dayElement.classList.add('current-day');
+          }
+      }
+    }
+  
+
+  function prevMonth() {
+      currentMonth = (currentMonth - 1 + 12) % 12;
+      if (currentMonth === 11) {
+          currentYear -= 1;
+      }
+      updateCalendar();
+  }
+
+
+  function nextMonth() {
+      currentMonth = (currentMonth + 1) % 12;
+      if (currentMonth === 0) {
+          currentYear += 1;
+      }
+      updateCalendar();
+  }
+
+  updateCalendar();
+</script>
+
+<div>
+  <a href="/">
+    <button type="submit">Return</button>
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+body {
+    background-color: #E6E8E6;
+    height: 100vh;
+}
+
+#body-container {
+    width: 30%;
+    height: 100%; 
+    margin-left: 35%;
+    margin-right: 35%;
+    display: flex;
+    flex-direction: column;
+    background-color: #03045E;
+    border-radius: 1.5vw;
+}
+
+#homepage-header {
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 120%;
+}
+
+#homepage-header img {
+    width: 8vw;
+    height: 8vw;
+}
+
+h1, h2, p {
+    font-family: Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    color: #E6E8E6;
+}
+
+h2 {
+    color: #E6E8E6;
+    font-weight: 700;
+}
+
+p {
+    font-size: small;
+    color: #E6E8E6;
+    font-weight: 900;
+}
+
+#homepage-buttons {
+    width: 100%;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    height: 7vh;
+    width: 14vw;
+    border-radius: 0.85vw;
+    background-color: #7C90DB;
+    border-color: #7C90DB;
+}
+
+button:hover .label-container p {
+    color: #03045E;
+}
+
+
+#homepage-buttons .button-container {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ .button-container .icon-container {
+    width: 20%;
+    margin-left: 5%;
+    object-fit: scale-down;
+}
+
+.button-container .label-container {
+    width: 70%;
+    margin-left: 5%;
+    justify-content: end;
+    text-align: left;
+}

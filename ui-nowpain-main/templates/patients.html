@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CK Pain Clinic</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+  </head>
+  <style>
+    h1 {
+      border-radius: 5px;
+      background-color: #cac0c0;
+      padding: 20px;
+    }
+    body {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    .hideextra { 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow:ellipsis; 
+    }
+    .button {
+      width: 150px;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #wrapper
+    {
+      position:absolute;
+      min-width: 100%;
+    }
+    #patients {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #patients td, #patients th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #patients tr:nth-child(even){background-color: #f2f2f2;}
+    #patients tr:hover {background-color: #ddd;}
+    #patients th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #3863d9;
+      color: white;
+    }
+  </style>
+  <body id="wrapper">
+    <h1>All Patients</h1>
+    <div>
+      <a href="/">
+        <button class="button" type="submit">Return</button>
+      </a>
+    </div>
+    <br>  
+    <table id="patients">
+      <tr>
+        <th>Patient ID</th>
+        <th>Patient First Visit</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>M Name</th>
+        <th>Korean Name</th>
+        <th>DOB</th>
+        <th>Sex</th>
+        <th>SNN</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+        <th>Cell Phone</th>
+        <th>Home Phone</th>
+
+        <th>Emergency Contact Name</th>
+        <th>Emergency Contact Relationship</th>
+        <th>Emergency Contact Cell Phone</th>
+        <th>Emergency Contact Home Phone</th>
+
+        <th>Insurance Type</th>
+        
+        <th>Patient # of Children</th>
+        <th>Patient Marriage Status</th>
+        
+        <th>DOL</th>
+        <th>Accident State</th>
+        <th>Accident Type</th>
+        <th>Police Report</th>
+        <th>Emergency Room</th>
+        <th>Insurance Company</th>
+        <th>Policy Number</th>
+        <th>Claim Number</th>
+        <th>Policyholder Last Name</th>
+        <th>Policyholder First Name</th>
+        <th>Policyholder Relationship</th>
+        <th>Attorney Name</th>
+        <th>Memo</th>
+        <th>PT Memo</th>
+      </tr>
+      <tr>
+        {% for item in data %}
+        <td>{{item[0]}}</td>
+        <td id="fv{{loop.index}}">{{item[1]}}</td>
+          <script>  
+            var value1 = document.getElementById("fv{{loop.index}}").innerHTML;
+            value1 += "T23:15:30";
+            date = new Date(value1);
+            console.log(date);
+            y = date.getFullYear();
+            m = date.getMonth() + 1;
+            d = date.getDate();
+            document.getElementById("fv{{loop.index}}").innerHTML = m + "/" + d + "/" + y; 
+          </script> 
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+        <td>{{item[5]}}</td>
+        <td id="dob{{loop.index}}">{{item[6]}}</td>
+          <script>  
+            var value1 = document.getElementById("dob{{loop.index}}").innerHTML;
+            value1 += "T23:15:30";
+            date = new Date(value1);
+            console.log(date);
+            y = date.getFullYear();
+            m = date.getMonth() + 1;
+            d = date.getDate();
+            document.getElementById("dob{{loop.index}}").innerHTML = m + "/" + d + "/" + y; 
+          </script> 
+        <td>{{item[7]}}</td>
+        <td class="hideextra">{{item[8]}}</td>
+        <td>{{item[9]}}</td>
+        <td>{{item[10]}}</td>
+        <td>{{item[11]}}</td>
+        <td>{{item[12]}}</td>
+        <td class="hideextra">{{item[13]}}</td>
+        <td class="hideextra">{{item[14]}}</td>
+        <td>{{item[15]}}</td>
+        <td>{{item[16]}}</td>
+        <td class="hideextra">{{item[17]}}</td>
+        <td class="hideextra">{{item[18]}}</td>
+        <td>{{item[19]}}</td>
+        <td>{{item[20]}}</td>
+        <td>
+          <input type="checkbox" onclick="return false;" {% if item[21] == True %} checked {% endif %}>
+        </td>
+        <td id="dol{{loop.index}}">{{item[22]}}</td>
+          <script>  
+            var value1 = document.getElementById("dol{{loop.index}}").innerHTML;
+            value1 += "T23:15:30";
+            date = new Date(value1);
+            console.log(date);
+            y = date.getFullYear();
+            m = date.getMonth() + 1;
+            d = date.getDate();
+            document.getElementById("dol{{loop.index}}").innerHTML = m + "/" + d + "/" + y; 
+          </script> 
+        <td>{{item[23]}}</td>
+        <td>{{item[24]}}</td>
+        <td>
+          <input type="checkbox" onclick="return false;" {% if item[25] == True %} checked {% endif %}>
+        </td>
+        <td>
+          <input type="checkbox" onclick="return false;" {% if item[26] == True %} checked {% endif %}>
+        </td>
+        <td>{{item[27]}}</td>
+        <td>{{item[28]}}</td>
+        <td>{{item[29]}}</td>
+        <td>{{item[30]}}</td>
+        <td>{{item[31]}}</td>
+        <td>{{item[32]}}</td>
+        <td>{{item[33]}}</td>
+        <td>{{item[34]}}</td>
+        <td>{{item[35]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br>
+    
+  </body>
+  
+</html>

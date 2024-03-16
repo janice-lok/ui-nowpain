@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CK Pain Clinic</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+  </head>
+
+  <body>
+    <h1>Attendance for {{name}}</h1>
+    {% for item in data %}
+      <label for="patient_name">Patient Name:</label>
+      <input type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
+      <label for="visit_date">Visit Date:</label>
+      <input type="date" id="visit_date" name="visit_date" required value="{{item[1]}}" readonly>
+      <label for="visit_time">Visit Time:</label>
+      <input type="time" id="visit_time" name="visit_time" required value="{{item[2]}}" readonly>
+      <label for="appt_type">Appointment Type:</label>
+      <select name="appt_type" id="appt_type" required multiple readonly>
+      	<option value ="PT" {% if (item[3]) == True %} selected {% endif %}>PT</option>
+        <option value="PMR(KIM)" {% if item[4] == True %} selected {% endif %}>PMR(KIM)</option>
+        <option value="PMR(KIM) EMG"  {% if item[5] == True %} selected {% endif %}>PMR(KIM) EMG</option>
+        <option value="CHIRO"  {% if item[6] == True %} selected {% endif %}>CHIRO</option>
+        <option value="ACU" {% if item[7] == True %} selected {% endif %}>ACU</option>
+        <option value="Cancel"  {% if item[8] == True %} selected {% endif %}>Cancel</option>
+        <option value="No Show" {% if item[9] == True %} selected {% endif %}>No Show</option>
+      </select>
+      <br>
+    {% endfor %}
+    <br>
+      <label for="total_pt">Total PT:</label>
+      <input type="text" id="total_pt" name="total_pt" value="{{count[0][0]}}" readonly>
+      <label for="total_md">Total MD:</label>
+      <input type="text" id="total_md" name="total_md" value="{{count[1][0]}}" readonly>
+      <label for="total_chiro">Total Chiro:</label>
+      <input type="text" id="total_chiro" name="total_chiro" value="{{count[2][0]}}" readonly>
+      <label for="total_acu">Total Acu:</label>
+      <input type="text" id="total_acu" name="total_acu" value="{{count[3][0]}}" readonly>
+      <label for="total_cancel">Total Cancel:</label>
+      <input type="text" id="total_cancel" name="total_cancel" value="{{count[4][0]}}" readonly>
+      <label for="total_no_show">Total No Show:</label>
+      <input type="text" id="total_no_show" name="total_no_show" value="{{count[5][0]}}" readonly>
+    <br>
+    <br>
+    <a href="/attendancesearch">
+      <button type="submit">Return</button>
+    </a>
+  </body>
+  
+</html>

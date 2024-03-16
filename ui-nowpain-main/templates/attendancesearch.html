@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CK Pain Clinic</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+  </head>
+  <style>
+    h1 {
+      border-radius: 5px;
+      background-color: #cac0c0;
+      padding: 20px;
+    }
+    body {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+    input[type=text], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+    input::-webkit-datetime-edit {
+      font-size: 14px;
+      font-family: Arial, sans-serif
+    }
+    input[type=date], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+
+    .button {
+      width: 150px;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+  <body>
+    <h1>Attendance</h1>
+    <h3>Search by Patient</h3>
+    <form autocomplete="off" action="{{ url_for('search_patient_attendance') }}" method="post">
+      <label for="patient_name">Patient Name:</label>
+      <input type="text" id="patient_name" name="patient_name" list="patient_name_choice" required>
+      <datalist id="patient_name_choice">
+      {% for item in data %}
+        <option value="{{item[5]}}"></option>
+      {% endfor %}
+      </datalist>
+      <label for="start_date">From:</label>
+      <input type="date" id="start_date" name="start_date" value="2024-03-01" required>
+      <label for="end_date">To:</label>
+      <input type="date" id="end_date" name="end_date" required> &nbsp;
+      <button type="submit" class="button">Submit Form</button>
+    </form>
+    <br>
+    <h3>Search by Date</h3>
+    <form autocomplete="off" action="{{ url_for('search_date_attendance') }}" method="post">
+      <label for="start_date">From:</label>
+      <input type="date" id="start_date" name="start_date" value="2024-03-01" required>
+      <label for="end_date">To:</label>
+      <input type="date" id="end_date" name="end_date" required> &nbsp;
+      <button type="submit" class="button">Submit Form</button>
+    </form>
+    <br>
+    <a href="/">
+      <button type="submit" class="button">Return</button>
+    </a>
+  </body>
+</html>
