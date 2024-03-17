@@ -11,11 +11,64 @@
     function myFunction() {
       alert("Patient Already Exists for this Date!");
     }
+
   </script>
   {% if error %}
   <body onload = "myFunction()">
   {% endif %}
+
+    <form action="/retrieve_appointments" method="post">
+      <input type="hidden" id="date" name="date" value ="{{date}}"></input>
+    <script>
+      var value = document.getElementById("date").value;
+      console.log(value)
+      value += "T23:15:30";
+      date = new Date(value);
+      console.log(date);
+      var yesterday = new Date(value);
+      yesterday.setDate(yesterday.getDate() - 1);
+      console.log(yesterday)
+
+      yy = yesterday.getFullYear();
+      my = yesterday.getMonth() + 1;
+      dy = yesterday.getDate();
+      if (my < 10) {
+            my = "0"+my;
+      }
+      if (dy < 10) {
+            dy = "0"+dy;
+      }
+      console.log(yy + "-" + my + "-" + dy)
+      document.getElementById("date").value = yy + "-" + my + "-" + dy; 
+
+    </script>
+    <button type="submit"><</button></form>
     <h1>Appointments for {{date}}</h1>
+
+
+    <form action="/retrieve_appointments_forward" method="post">
+      <input type="hidden" id="date1" name="date1" value ="{{date}}"></input>    
+    <script>
+      var tomorrow = new Date(value);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      console.log(tomorrow)
+
+      yt = tomorrow.getFullYear();
+      mt = tomorrow.getMonth() + 1;
+      dt = tomorrow.getDate();
+      if (mt < 10) {
+            mt = "0"+mt;
+      }
+      if (dt < 10) {
+            dt = "0"+dt;
+      }
+      console.log(yt + "-" + mt + "-" + dt)
+      document.getElementById("date1").value = yt + "-" + mt + "-" + dt
+
+    </script>
+    <button type="submit">></button></form>
+
+
     {% for item in data %}
     <form autocomplete="off" action="{{ url_for('update_appointment') }}" id="update_appointment" method="post">
       <label for="patient_name">Patient Name:</label>
