@@ -13,149 +13,321 @@
     }
 
   </script>
+  <style>
+    #appointment-header {
+      background-color: #03045E;
+      text-align: center;
+      display: flex;
+      height: 10vh;
+      justify-content: center;
+    } 
+     #appointment-header .arrows{
+      margin-top: 3vh;
+      margin-left: 20px;
+      margin-right: 20px;
+      height: 4vh;
+      width: 4vw;
+      background-color: #3863d9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #appointment-header .arrows:hover{
+      color: #03045E;
+    }
+    #appointment-header #month-day-year{
+      margin-bottom: 20vh;
+    } 
+    h1 {
+      border-radius: 5px;
+      background-color: #03045E;
+      color: #E6E8E6;
+      margin-top: 3vh;
+    }
+    body {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    .smallbutton {
+      background-color: #3863d9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button {
+      width: 150px;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #wrapper
+    {
+      position:absolute;
+      min-width: 100%;
+    }
+    #appointments {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #appointments td, #appointments th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #appointments tr:nth-child(even){background-color: #f2f2f2;}
+    #appointments tr:hover {background-color: #ddd;}
+    #appointments th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #3863d9;
+      color: white;
+    }
+
+    input[type=text], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+  
+    input[type=date], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+
+    input[type=time], select {
+      font-family: Arial, sans-serif;
+      padding: 5px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #24292e;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      outline: none;
+      box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+      :focus{
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      }         
+    }
+  
+    input[type=button] {
+      width: 15%;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      margin-right: 10px;
+
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+    }
+
+    #button-container{
+      display:flex;
+      flex-direction: row;
+    }
+
+  </style>
   {% if error %}
   <body onload = "myFunction()">
   {% endif %}
+    <div id="appointment-header">
+      <form action="/retrieve_appointments" method="post">
+        <input type="hidden" id="date" name="date" value ="{{date}}"></input>
+        <script>
+          var value = document.getElementById("date").value;
+          value += "T23:15:30";
+          date = new Date(value);
+          var yesterday = new Date(value);
+          yesterday.setDate(yesterday.getDate() - 1);
 
-    <form action="/retrieve_appointments" method="post">
-      <input type="hidden" id="date" name="date" value ="{{date}}"></input>
-    <script>
-      var value = document.getElementById("date").value;
-      console.log(value)
-      value += "T23:15:30";
-      date = new Date(value);
-      console.log(date);
-      var yesterday = new Date(value);
-      yesterday.setDate(yesterday.getDate() - 1);
-      console.log(yesterday)
+          yy = yesterday.getFullYear();
+          my = yesterday.getMonth() + 1;
+          dy = yesterday.getDate();
+          if (my < 10) {
+                my = "0"+my;
+          }
+          if (dy < 10) {
+                dy = "0"+dy;
+          }
+          document.getElementById("date").value = yy + "-" + my + "-" + dy; 
 
-      yy = yesterday.getFullYear();
-      my = yesterday.getMonth() + 1;
-      dy = yesterday.getDate();
-      if (my < 10) {
-            my = "0"+my;
-      }
-      if (dy < 10) {
-            dy = "0"+dy;
-      }
-      console.log(yy + "-" + my + "-" + dy)
-      document.getElementById("date").value = yy + "-" + my + "-" + dy; 
+        </script>
+        <button type="submit" class="arrows"><</button>
+      </form>
+      <h1 id="month-day-year"></h1>
+      <form action="/retrieve_appointments_forward" method="post">
+        <input type="hidden" id="date1" name="date1" value ="{{date}}"></input>    
+        <script>
+          const appointmentHeader = document.getElementById('month-day-year');
+          var value = document.getElementById("date1").value;
+          value += "T23:15:30";
+          appointmentHeader.textContent = new Date(value).toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+          var tomorrow = new Date(value);
+          tomorrow.setDate(tomorrow.getDate() + 1);
 
-    </script>
-    <button type="submit"><</button></form>
-    <h1>Appointments for {{date}}</h1>
+          yt = tomorrow.getFullYear();
+          mt = tomorrow.getMonth() + 1;
+          dt = tomorrow.getDate();
+          if (mt < 10) {
+                mt = "0"+mt;
+          }
+          if (dt < 10) {
+                dt = "0"+dt;
+          }
+          document.getElementById("date1").value = yt + "-" + mt + "-" + dt
 
+        </script>
+        <button type="submit" class="arrows">></button>
+      </form>
+    </div>
+    <br>
+    <table id="appointments">
+      <tr>
+        <th>Patient Name</th>
+        <th>Visit Date</th>
+        <th>Visit Time</th>
+        <th>Appointment Type</th>
+        <th>Memo</th>
+        <th>Visited</th>
 
-    <form action="/retrieve_appointments_forward" method="post">
-      <input type="hidden" id="date1" name="date1" value ="{{date}}"></input>    
-    <script>
-      var tomorrow = new Date(value);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      console.log(tomorrow)
-
-      yt = tomorrow.getFullYear();
-      mt = tomorrow.getMonth() + 1;
-      dt = tomorrow.getDate();
-      if (mt < 10) {
-            mt = "0"+mt;
-      }
-      if (dt < 10) {
-            dt = "0"+dt;
-      }
-      console.log(yt + "-" + mt + "-" + dt)
-      document.getElementById("date1").value = yt + "-" + mt + "-" + dt
-
-    </script>
-    <button type="submit">></button></form>
-
-
-    {% for item in data %}
-    <form autocomplete="off" action="{{ url_for('update_appointment') }}" id="update_appointment" method="post">
-      <label for="patient_name">Patient Name:</label>
-      <input type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
-      <label for="visit_date">Visit Date:</label>
-      <input type="date" id="visit_date" name="visit_date" required value="{{item[1]}}">
-      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}">
-      <label for="visit_time">Visit Time:</label>
-      <input type="time" id="visit_time" name="visit_time" required value="{{item[2]}}">
-      <label for="appt_type">Appointment Type:</label>
-      <select name="appt_type" id="appt_type" required multiple>
-        <option value ="PT" {% if (item[3]) == True %} selected {% endif %}>PT</option>
-        <option value="PMR(KIM)" {% if item[4] == True %} selected {% endif %}>PMR(KIM)</option>
-        <option value="PMR(KIM) EMG"  {% if item[5] == True %} selected {% endif %}>PMR(KIM) EMG</option>
-        <option value="CHIRO"  {% if item[6] == True %} selected {% endif %}>CHIRO</option>
-        <option value="ACU" {% if item[7] == True %} selected {% endif %}>ACU</option>
-        <option value="Cancel"  {% if item[8] == True %} selected {% endif %}>Cancel</option>
-        <option value="No Show" {% if item[9] == True %} selected {% endif %}>No Show</option>
-      </select>
-      <label for="memo">Memo:</label>
-      <input type="text" id="memo" name="memo" value="{{item[10]}}">
-      <label for="visited">Visited:</label>
-      <input type="checkbox" id="visited" name="visited" {% if item[11] == True %} checked {% endif %}>
-      <label for="last_pt">Last PT:</label>
-      <input type="date" id="last_pt" name="last_pt" required value="{{item[12]}}" readonly>
-      <label for="last_md">Last MD:</label>
-      <input type="date" id="last_md" name="last_md" required value="{{item[13]}}" readonly>
-      <label for="last_chiro">Last CHIRO:</label>
-      <input type="date" id="last_chiro" name="last_chiro" required value="{{item[14]}}" readonly>
-      <label for="last_acu">Last ACU:</label>
-      <input type="date" id="last_acu" name="last_acu" required value="{{item[15]}}" readonly>
-      <button type="submit">Save Form</button>
+        <th>Last PT</th>
+        <th>Last MD</th>
+        <th>Last Chiro</th>
+        <th>Last ACU</th>
+      </tr>
+    {% for item in data %}  
+    <form autocomplete="off" action="{{ url_for('update_appointment') }}" id="update_appointment" method="post">  
+      <tr>
+        <td><input type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly></td>
+        <td><input type="date" id="visit_date" name="visit_date" required value="{{item[1]}}"></td>
+        <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}">
+        <td><input type="time" id="visit_time" name="visit_time" required value="{{item[2]}}"></td>
+        <td><select name="appt_type" id="appt_type" required multiple>
+          <option value ="PT" {% if (item[3]) == True %} selected {% endif %}>PT</option>
+          <option value="PMR(KIM)" {% if item[4] == True %} selected {% endif %}>PMR(KIM)</option>
+          <option value="PMR(KIM) EMG"  {% if item[5] == True %} selected {% endif %}>PMR(KIM) EMG</option>
+          <option value="CHIRO"  {% if item[6] == True %} selected {% endif %}>CHIRO</option>
+          <option value="ACU" {% if item[7] == True %} selected {% endif %}>ACU</option>
+          <option value="Cancel"  {% if item[8] == True %} selected {% endif %}>Cancel</option>
+          <option value="No Show" {% if item[9] == True %} selected {% endif %}>No Show</option>
+        </select></td>
+        <td><input type="text" id="memo" name="memo" value="{{item[10]}}"></td>
+        <td><input type="checkbox" id="visited" name="visited" {% if item[11] == True %} checked {% endif %}></td>
+        <td><input type="date" id="last_pt" name="last_pt" required value="{{item[12]}}" readonly></td>
+        <td><input type="date" id="last_md" name="last_md" required value="{{item[13]}}" readonly></td>
+        <td><input type="date" id="last_chiro" name="last_chiro" required value="{{item[14]}}" readonly></td>
+        <td><input type="date" id="last_acu" name="last_acu" required value="{{item[15]}}" readonly></td>
+        <td><button class="smallbutton" type="submit">Save Form</button></td>
     </form>
-    <form action="{{ url_for('delete_appointment') }}" id="delete_appointment" method="post">
-      <input hidden type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
-      <input hidden type="date" id="visit_date" name="visit_date" required value="{{item[1]}}">
-      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}" readonly>
-      <button type="submit">Delete</button>
+      <form action="{{ url_for('delete_appointment') }}" id="delete_appointment" method="post">
+        <input hidden type="text" id="patient_name" name="patient_name" required value="{{item[0]}}" readonly>
+        <input hidden type="date" id="visit_date" name="visit_date" required value="{{item[1]}}">
+        <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{item[1]}}" readonly>
+        <td><button class="smallbutton" type="submit">Delete</button></td>
     </form>
+      </tr>
     {% endfor %}
     <form autocomplete="off" action="{{ url_for('process_appointment') }}" id="process_appointment" method="post">
-      <label for="patient_name">Patient Name:</label>
-      <input type="text" id="patient_name" name="patient_name" list="patient_name_choice" required>
-      <datalist id="patient_name_choice">
-        {% for item in patients %}
-            <option value="{{item[5]}}"></option>
-        {% endfor %}
-      </datalist>
-      <label for="visit_date">Visit Date:</label>
-      <input type="date" id="visit_date" name="visit_date" value="{{date}}" required>
-      <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{date}}">
-      <label for="visit_time">Visit Time:</label>
-      <input type="time" id="visit_time" name="visit_time" required>
-      <label for="appt_type">Appointment Type:</label>
-      <select name="appt_type" id="appt_type" multiple required>
-        <option value="PT">PT</option>
-        <option value="PMR(KIM)">PMR(KIM)</option>
-        <option value="PMR(KIM) EMG">PMR(KIM) EMG</option>
-        <option value="CHIRO">CHIRO</option>
-        <option value="ACU">ACU</option>
-        <option value="Cancel">Cancel</option>
-        <option value="No Show">No Show</option>
-      </select>
-      <label for="memo">Memo:</label>
-      <input type="text" id="memo" name="memo">
-      <label for="visited">Visited:</label>
-      <input type="checkbox" id="visited" name="visited">
-      <button type="submit">Submit Form</button>
+      <tr>
+        <td><input type="text" id="patient_name" name="patient_name" list="patient_name_choice" required></td>
+        <datalist id="patient_name_choice">
+          {% for item in patients %}
+              <option value="{{item[5]}}"></option>
+          {% endfor %}
+        </datalist>
+        <td><input type="date" id="visit_date" name="visit_date" value="{{date}}" required></td>
+        <input hidden type="date" id="old_visit_date" name="old_visit_date" value="{{date}}">
+        <td><input type="time" id="visit_time" name="visit_time" required></td>
+        <td><select name="appt_type" id="appt_type" multiple required>
+          <option value="PT">PT</option>
+          <option value="PMR(KIM)">PMR(KIM)</option>
+          <option value="PMR(KIM) EMG">PMR(KIM) EMG</option>
+          <option value="CHIRO">CHIRO</option>
+          <option value="ACU">ACU</option>
+          <option value="Cancel">Cancel</option>
+          <option value="No Show">No Show</option>
+        </select></td>
+        <td><input type="text" id="memo" name="memo"></td>
+        <td><input type="checkbox" id="visited" name="visited"></td>
+        <td><button class="smallbutton" type="submit">Submit Form</button></td>
+      </tr>
     </form>
+      <tr>
+        <th><label for="total_pt">Total PT</label></th>
+        <th><label for="total_md">Total MD</label></th>
+        <th><label for="total_chiro">Total Chiro</label></th>
+        <th><label for="total_acu">Total Acu</label></th>
+        <th><label for="total_cancel">Total Cancel</label></th>
+        <th><label for="total_no_show">Total No Show</label></th>
+      </tr>
+      <tr>
+        <td><input type="text" id="total_pt" name="total_pt" value="{{count[0][0]}}" readonly></td>
+        <td><input type="text" id="total_md" name="total_md" value="{{count[1][0]}}" readonly></td>
+        <td><input type="text" id="total_chiro" name="total_chiro" value="{{count[2][0]}}" readonly></td>
+        <td><input type="text" id="total_acu" name="total_acu" value="{{count[3][0]}}" readonly></td>
+        <td><input type="text" id="total_cancel" name="total_cancel" value="{{count[4][0]}}" readonly></td>
+        <td><input type="text" id="total_no_show" name="total_no_show" value="{{count[5][0]}}" readonly></td>
+      </tr>
+    </table>
     <br>
-    <br>
-      <label for="total_pt">Total PT:</label>
-      <input type="text" id="total_pt" name="total_pt" value="{{count[0][0]}}" readonly>
-      <label for="total_md">Total MD:</label>
-      <input type="text" id="total_md" name="total_md" value="{{count[1][0]}}" readonly>
-      <label for="total_chiro">Total Chiro:</label>
-      <input type="text" id="total_chiro" name="total_chiro" value="{{count[2][0]}}" readonly>
-      <label for="total_acu">Total Acu:</label>
-      <input type="text" id="total_acu" name="total_acu" value="{{count[3][0]}}" readonly>
-      <label for="total_cancel">Total Cancel:</label>
-      <input type="text" id="total_cancel" name="total_cancel" value="{{count[4][0]}}" readonly>
-      <label for="total_no_show">Total No Show:</label>
-      <input type="text" id="total_no_show" name="total_no_show" value="{{count[5][0]}}" readonly>
-    <br>
-    <br>
-    <a href="/calendar">
-      <button type="submit">Return</button>
-    </a>
+
+    <div id="button-container">
+      <a href="/calendar">
+        <button class="button" type="submit">Return</button>
+      </a>
+
+      <form action="/print_appointment" method="post">
+          <input type="hidden" id="printdate" name="printdate" value ="{{date}}"></input>
+          <button class="button" type="submit">Print PMR</button>
+      </form>
+    </div>
   </body>
 </html>

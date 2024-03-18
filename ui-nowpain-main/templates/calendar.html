@@ -9,7 +9,7 @@
 <style>
   body {
       font-family: Helvetica, sans-serif;
-      background: white;
+      background: #E6E8E6;
   }
 
   .astext {
@@ -19,42 +19,57 @@
     padding:0;
     cursor: pointer;
     border-radius: 100%
-
   }
-
 
   #calendar {
       width: 100%;
-      margin: 50px auto;
+      margin: 20px auto;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      /* border-radius: 5px; */
+      border-radius: 1.5vw;
       overflow: hidden;
-      background-color: #E6E8E6;
+      background-color: white;
   }
 
   #calendar-header {
       background-color: #03045E;
-      color: #E6E8E6;
+      color: white;
       text-align: center;
       display: flex;
       height: 10vh;
       justify-content: center;
+      align-items: center;
   }
   #calendar-header .arrows{
-      margin-top: 1vh;
+      /* margin-top: 3vh; */
       margin-left: 20px;
       margin-right: 20px;
-      height: 8vh;
+      height: 2.5vw;
+      width: 2.5vw;
+      /* height: 4vh;
       width: 4vw;
+      background-color: #3863d9; */
+      background-color: transparent; 
+      color: white;
+      border: none;
+      /* border-radius: 4px; */
+      border-radius: 5vw;
+      cursor: pointer;
+    }
+  #calendar-header .arrows:hover{
+      /* color: #03045E; */
+      background-color: #3777FF;
   }
   #calendar-header #month-year{
-      margin-bottom: 1vh;
+      margin-top: 3vh;
   }
 
   #calendar-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #E6E8E6; 
+      color: #03045E;
+      font-weight: 900;
   }
 
   #calendar-days div {
@@ -65,17 +80,26 @@
   #calendar-body {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      padding: 10px;
+      /* padding: 10px; */
   }
 
   #calendar-body div {
-      border: 1px solid #ccc;
+      border: 0.75px solid #E6E8E6; 
       padding: 10px;
       min-height: 100px;
   }
   #calendar-body .current-day {
       background-color: #3777FF;
-      color: #fff;
+      color: #E6E8E6;
+  } 
+  .button {
+      width: 150px;
+      background-color: #3863d9;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
   }
 
 
@@ -163,17 +187,19 @@
           var count = 0;       
           
           dayElement.innerHTML = '<form action="/retrieve_appointments" method="post"><input type="hidden" id="date" name="date" value="'+ref_date+'"><button class="astext">'+ref_day+'</button></form>';
+ 
           for (let i = 0; i< arr.length;i++){
                 if (count <= 3 && arr[i][1] == ref_date){
                   dayElement.innerHTML += '<label>' + arr[i][0] + '</label><br>'
                   count++;
                 }
-          }          
+          }      
           calendarBody.appendChild(dayElement);
 
           // Highlight the current day
           if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
               dayElement.classList.add('current-day');
+              dayElement.querySelector('button').style.color = 'white';
           }
       }
     }
@@ -199,10 +225,10 @@
   updateCalendar();
 </script>
 
-<div>
+
   <a href="/">
-    <button type="submit">Return</button>
+    <button class="button" type="submit">Return</button>
   </a>
-</div>
+
 </body>
 </html>
